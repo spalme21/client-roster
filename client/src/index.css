@@ -1,0 +1,32 @@
+html,
+body,
+#root {
+  display: block;
+  height: 100%;
+}
+
+.form {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form .first-input {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form .middle-input {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.form .last-input {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
