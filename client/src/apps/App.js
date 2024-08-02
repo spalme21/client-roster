@@ -12,9 +12,10 @@ import Dashboard from "../pages/Dashboard";
 import ProtectedLayout from "../layouts/ProtectedLayout";
 import Roster, { loader as rosterLoader } from "../pages/Roster";
 import ClientForm from "../pages/ClientForm";
-import ClientDetail, { loader as clientLoader } from "../pages/ClientDetail";
+import ClientDetail from "../pages/ClientDetail";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthLayout } from "../layouts/AuthLayout";
+import { clientLoader } from "../hooks/useClientDetail";
 
 const queryClient = new QueryClient();
 
@@ -35,8 +36,13 @@ export const router = createBrowserRouter(
         />
         <Route path="add-client" element={<ClientForm />} />
         <Route
-          path="client-details/:clientId"
+          path="client/:clientId"
           element={<ClientDetail />}
+          loader={clientLoader(queryClient)}
+        />
+        <Route
+          path="client/:clientId/edit"
+          element={<ClientForm />}
           loader={clientLoader(queryClient)}
         />
       </Route>

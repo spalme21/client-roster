@@ -1,14 +1,26 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
-// import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useClientDetail } from "../hooks/useClientDetail";
 
 export default function ClientForm() {
-  // const [clientExists, setClientExists] = useState(false);
+  const { clientId } = useParams();
+  const createMode = !clientId;
+  const initialData = useLoaderData();
+  const { data } = useQuery({
+    ...useClientDetail(clientId),
+    initialData,
+  });
+  console.log(data);
+  console.log(clientId);
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -20,41 +32,37 @@ export default function ClientForm() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        // console.log(response.data.clientExists);
-        // if (response.data.clientExists) {
-        //   setClientExists(true);
-        // } else {
         navigate("/roster");
-        // }
       })
       .catch((err) => console.log(err));
-    // return response;
+  };
+
+  const updateClient = (id, data) => {
+    axios
+      .patch(`http://localhost:8080/clients/${id}/edit`, data, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        navigate(`/client/${id}`);
+      })
+      .catch((err) => console.log(err));
   };
 
   const mutation = useMutation({ mutationFn: createClient });
 
   const onSubmit = (data, e) => {
     e.preventDefault();
-    mutation.mutate(data);
-    // if (response.data.clientExists) {
-    //   setClientExists(true);
-    // } else {
-    //   navigate("/roster");
-    // }
-    // await axios
-    //   .post("http://localhost:8080/clients/add", data, {
-    //     headers: { "Content-Type": "application/json" },
-    //   })
-    //   .then((response) => {
-    //     if (!response.data.clientExists) {
-    //       navigate("/roster");
-    //     } else {
-    //       setClientExists(true);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
-    // e.target.reset();
+    createMode ? mutation.mutate(data) : updateClient(clientId, data);
   };
+
+  useEffect(() => {
+    if (!createMode) {
+      setValue("firstName", data.first_name);
+      setValue("lastName", data.last_name);
+      setValue("email", data.email);
+      setValue("phone", data.phone);
+    }
+  });
 
   return (
     <div className="d-flex align-items-center bg-body-tertiary h-100">

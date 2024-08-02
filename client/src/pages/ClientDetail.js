@@ -1,33 +1,12 @@
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useLoaderData, useParams } from "react-router-dom";
-
-const getClient = async (clientId) => {
-  const response = await axios.get(`http://localhost:8080/clients/${clientId}`);
-  console.log(response);
-  return response.data;
-};
-
-const clientDetailQuery = (clientId) => ({
-  queryKey: ["clients", "detail", clientId],
-  queryFn: async () => getClient(clientId),
-});
-
-export const loader =
-  (queryClient) =>
-  async ({ params }) => {
-    const query = clientDetailQuery(params.clientId);
-    return (
-      queryClient.getQueryData(query.queryKey) ??
-      (await queryClient.fetchQuery(query))
-    );
-  };
+import { NavLink, useLoaderData, useParams } from "react-router-dom";
+import { useClientDetail } from "../hooks/useClientDetail";
 
 export default function ClientDetail() {
   const initialData = useLoaderData();
   const params = useParams();
   const { data } = useQuery({
-    ...clientDetailQuery(params.clientId),
+    ...useClientDetail(params.clientId),
     initialData,
   });
 
@@ -48,9 +27,14 @@ export default function ClientDetail() {
           <h3>Contact Info</h3>
         </div>
         <div className="row">
-          <p className="col text-center">{formattedPhone}</p>
-          <p className="col text-center">{data.email}</p>
+          <p className="col text-center">
+            <b>Phone:</b> {formattedPhone}
+          </p>
+          <p className="col text-center">
+            <b>Email:</b> {data.email}
+          </p>
         </div>
+        <NavLink to={`/client/${params.clientId}/edit`}>Edit</NavLink>
       </div>
     </div>
   );

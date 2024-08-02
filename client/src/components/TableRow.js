@@ -4,7 +4,7 @@ export default function TableRow({ client }) {
   return (
     <tr>
       <td>
-        <NavLink to={`/client-details/${client.id}`}>
+        <NavLink to={`/client/${client.id}`}>
           {client.last_name}, {client.first_name}
         </NavLink>
       </td>

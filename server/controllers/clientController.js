@@ -43,3 +43,27 @@ exports.get_client = asyncHandler(async (req, res) => {
   const client = await Client.findByPk(clientId);
   res.send(client);
 });
+
+// PATCH edit client
+exports.edit_client = asyncHandler(async (req, res) => {
+  const { lastName, firstName, email, phone } = req.body;
+  const clientId = req.params.id;
+
+  Client.update(
+    {
+      last_name: lastName,
+      first_name: firstName,
+      email: email,
+      phone: phone,
+    },
+    {
+      where: {
+        id: clientId,
+      },
+    }
+  )
+    .then((client) => {
+      res.send(client);
+    })
+    .catch((err) => res.send(err));
+});

@@ -12,4 +12,7 @@ router.get("/", clientController.get_all_clients);
 // GET client by id
 router.get("/:id", clientController.get_client);
 
+// PATCH client info by id
+router.patch("/:id/edit", clientController.edit_client);
+
 module.exports = router;
