@@ -3,7 +3,10 @@ import { useAuth } from "../auth/AuthProvider";
 function Dashboard() {
   const auth = useAuth();
 
-  const clickHandler = () => console.log(auth.user);
+  const clickHandler = () => {
+    console.log(auth.user);
+    console.log(auth.token);
+  };
 
   return (
     <>

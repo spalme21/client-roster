@@ -1,4 +1,4 @@
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../auth/AuthProvider";
 
@@ -15,7 +15,7 @@ function LogIn() {
     auth.loginAction(data);
   };
 
-  if (auth.token) return <Navigate to="/dashboard" />;
+  // if (auth.token) return <Navigate to="/dashboard" />;
 
   return (
     <div className="row d-flex align-items-center py-4 bg-body-tertiary h-100">
