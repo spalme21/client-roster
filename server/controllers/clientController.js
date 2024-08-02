@@ -67,3 +67,16 @@ exports.edit_client = asyncHandler(async (req, res) => {
     })
     .catch((err) => res.send(err));
 });
+
+//DELETE client
+exports.delete_client = asyncHandler(async (req, res) => {
+  const clientId = req.params.id;
+
+  Client.destroy({
+    where: {
+      id: clientId,
+    },
+  })
+    .then((result) => res.send(result))
+    .catch((err) => res.send(err));
+});

@@ -10,7 +10,6 @@ export default function ClientDetail() {
     initialData,
   });
 
-  console.log(data);
   const formattedPhone = `(${data.phone.substring(0, 3)})${data.phone.substring(
     3,
     6
@@ -34,7 +33,7 @@ export default function ClientDetail() {
             <b>Email:</b> {data.email}
           </p>
         </div>
-        <NavLink to={`/client/${params.clientId}/edit`}>Edit</NavLink>
+        <NavLink to={`edit`}>Edit</NavLink>
       </div>
     </div>
   );

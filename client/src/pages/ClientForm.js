@@ -14,8 +14,6 @@ export default function ClientForm() {
     ...useClientDetail(clientId),
     initialData,
   });
-  console.log(data);
-  console.log(clientId);
 
   const {
     register,

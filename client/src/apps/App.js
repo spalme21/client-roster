@@ -21,8 +21,8 @@ const queryClient = new QueryClient();
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<AuthLayout />}>
-      <Route element={<RootLayout />} errorElement={<ErrorPage />}>
+    <Route element={<AuthLayout />} errorElement={<ErrorPage />}>
+      <Route element={<RootLayout />}>
         <Route path="/" element={<LogIn />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />

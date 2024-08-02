@@ -15,4 +15,7 @@ router.get("/:id", clientController.get_client);
 // PATCH client info by id
 router.patch("/:id/edit", clientController.edit_client);
 
+// DELETE client by id
+router.delete("/:id/delete", clientController.delete_client);
+
 module.exports = router;
