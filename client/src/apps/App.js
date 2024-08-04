@@ -16,6 +16,7 @@ import ClientDetail from "../pages/ClientDetail";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthLayout } from "../layouts/AuthLayout";
 import { clientLoader } from "../hooks/useClientDetail";
+import ClientDelete from "../pages/ClientDelete";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,11 @@ export const router = createBrowserRouter(
         <Route
           path="client/:clientId/edit"
           element={<ClientForm />}
+          loader={clientLoader(queryClient)}
+        />
+        <Route
+          path="client/:clientId/delete"
+          element={<ClientDelete />}
           loader={clientLoader(queryClient)}
         />
       </Route>

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useClientDetail } from "../hooks/useClientDetail";
@@ -46,11 +45,8 @@ export default function ClientForm() {
       .catch((err) => console.log(err));
   };
 
-  const mutation = useMutation({ mutationFn: createClient });
-
   const onSubmit = (data, e) => {
-    e.preventDefault();
-    createMode ? mutation.mutate(data) : updateClient(clientId, data);
+    createMode ? createClient(data) : updateClient(clientId, data);
   };
 
   useEffect(() => {
@@ -66,7 +62,9 @@ export default function ClientForm() {
     <div className="d-flex align-items-center bg-body-tertiary h-100">
       <div className="form m-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="h3">Add a new client:</h1>
+          <h1 className="h3">
+            {createMode ? "Add a new client:" : "Update client info:"}
+          </h1>
           <div className="form-floating">
             <input
               className="form-control first-input"

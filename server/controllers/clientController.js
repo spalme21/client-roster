@@ -76,7 +76,5 @@ exports.delete_client = asyncHandler(async (req, res) => {
     where: {
       id: clientId,
     },
-  })
-    .then((result) => res.send(result))
-    .catch((err) => res.send(err));
+  });
 });

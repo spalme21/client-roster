@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { NavLink, useLoaderData, useParams } from "react-router-dom";
 import { useClientDetail } from "../hooks/useClientDetail";
+import { formatPhone } from "../utils/formatPhone";
 
 export default function ClientDetail() {
   const initialData = useLoaderData();
@@ -10,16 +11,22 @@ export default function ClientDetail() {
     initialData,
   });
 
-  const formattedPhone = `(${data.phone.substring(0, 3)})${data.phone.substring(
-    3,
-    6
-  )}-${data.phone.substring(6)}`;
+  const formattedPhone = formatPhone(data.phone);
 
   return (
     <div>
-      <h1>
-        {data.last_name}, {data.first_name}
-      </h1>
+      <div className="row align-items-center">
+        <h1 className="col">
+          {data.last_name}, {data.first_name}
+        </h1>
+        <NavLink className="btn btn-secondary btn-sm me-2 col-2" to="edit">
+          Edit
+        </NavLink>
+        <NavLink className="btn btn-danger btn-sm col-2" to="delete">
+          Delete
+        </NavLink>
+      </div>
+
       <hr></hr>
       <div className="container">
         <div className="row">
@@ -33,7 +40,6 @@ export default function ClientDetail() {
             <b>Email:</b> {data.email}
           </p>
         </div>
-        <NavLink to={`edit`}>Edit</NavLink>
       </div>
     </div>
   );
