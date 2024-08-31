@@ -36,6 +36,7 @@ export default function Roster() {
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
+            <th>Credits</th>
           </tr>
         </thead>
         <tbody>{tableRows}</tbody>

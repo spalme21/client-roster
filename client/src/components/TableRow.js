@@ -13,6 +13,7 @@ export default function TableRow({ client }) {
       </td>
       <td>{formattedPhone}</td>
       <td>{client.email}</td>
+      <td>{client.balance}</td>
     </tr>
   );
 }
