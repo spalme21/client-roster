@@ -41,6 +41,13 @@ export default function ClientDetail() {
           </p>
         </div>
       </div>
+      <hr></hr>
+      <div className="container">
+        <div className="row">
+          <h3 className="col m-auto">Balance:</h3>
+          <p className="col m-auto">{data.balance}</p>
+        </div>
+      </div>
     </div>
   );
 }
