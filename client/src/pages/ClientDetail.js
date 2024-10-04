@@ -46,6 +46,9 @@ export default function ClientDetail() {
         <div className="row">
           <h3 className="col m-auto">Balance:</h3>
           <p className="col m-auto">{data.balance}</p>
+          <NavLink className="col btn btn-secondary btn-sm" to="update-balance">
+            Update Balance
+          </NavLink>
         </div>
       </div>
     </div>

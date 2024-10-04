@@ -68,6 +68,27 @@ exports.edit_client = asyncHandler(async (req, res) => {
     .catch((err) => res.send(err));
 });
 
+//PATCH update balance
+exports.update_balance = asyncHandler(async (req, res) => {
+  const { balance } = req.body;
+  const clientId = req.params.id;
+
+  Client.update(
+    {
+      balance: balance,
+    },
+    {
+      where: {
+        id: clientId,
+      },
+    }
+  )
+    .then((client) => {
+      res.send(client);
+    })
+    .catch((err) => res.send(err));
+});
+
 //DELETE client
 exports.delete_client = asyncHandler(async (req, res) => {
   const clientId = req.params.id;

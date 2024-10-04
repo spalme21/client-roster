@@ -18,4 +18,7 @@ router.patch("/:id/edit", clientController.edit_client);
 // DELETE client by id
 router.delete("/:id/delete", clientController.delete_client);
 
+// PATCH balance by id
+router.patch("/:id/balance", clientController.update_balance);
+
 module.exports = router;
