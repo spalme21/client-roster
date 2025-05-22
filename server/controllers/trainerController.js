@@ -31,26 +31,6 @@ exports.register = asyncHandler(async (req, res) => {
           });
         }
       });
-      // Trainer.findOrCreate({
-      //   where: { email: email },
-      //   defaults: {
-      //     password: hashedPassword,
-      //     last_name: lastName,
-      //     first_name: firstName,
-      //   },
-      // })
-      //   .then((user, created) => {
-      //     console.log(created);
-      //     if (created) {
-      //       res.send({ userExists: false });
-      //     } else {
-      //       res.send({ userExists: true });
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     res.status(500).send({ message: err.message });
-      //   });
     }
   });
 });

@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../auth/AuthProvider";
+import { useState } from "react";
 
 function LogIn() {
+  const [message, setMessage] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -12,7 +15,7 @@ function LogIn() {
   const auth = useAuth();
 
   const onSubmit = (data) => {
-    auth.loginAction(data);
+    auth.loginAction(data).then((res) => setMessage(res));
   };
 
   // if (auth.token) return <Navigate to="/dashboard" />;
@@ -61,6 +64,9 @@ function LogIn() {
               )}
             </label>
           </div>
+          {message && (
+            <span className="text-danger fw-lighter fst-italic">{message}</span>
+          )}
           <button className="btn btn-primary w-100 py-2 mb-1" type="submit">
             Log In
           </button>

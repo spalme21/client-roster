@@ -13,11 +13,16 @@ const AuthProvider = ({ children }) => {
   const loginAction = async (data) => {
     try {
       const res = await axios.post("http://localhost:8080/trainer/login", data);
+      console.log(res);
       if (res.data) {
-        setUser(res.data.user);
-        setToken(res.data.token);
-        navigate("/dashboard");
-        return;
+        if (res.data.user) {
+          setUser(res.data.user);
+          setToken(res.data.token);
+          navigate("/dashboard");
+          return;
+        } else {
+          return res.data;
+        }
       }
       throw new Error(res.message);
     } catch (err) {
