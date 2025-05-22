@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [userExists, setUserExists] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,7 +24,8 @@ function SignUp() {
         if (response.data.userExists) {
           setUserExists(true);
         } else {
-          return redirect("/login");
+          console.log(response);
+          return navigate("/login");
         }
       })
       .catch((err) => console.log(err));

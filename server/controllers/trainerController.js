@@ -14,25 +14,43 @@ exports.register = asyncHandler(async (req, res) => {
     if (err) {
       res.status(500).send("There was a problem hashing the password.");
     } else {
-      Trainer.findOrCreate({
+      Trainer.findOne({
         where: { email: email },
-        defaults: {
-          password: hashedPassword,
-          last_name: lastName,
-          first_name: firstName,
-        },
-      })
-        .then((user, created) => {
-          if (!created) {
-            res.send({ userExists: true });
-          } else {
-            res.send({ email: email });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          res.status(500).send({ message: err.message });
-        });
+      }).then((user) => {
+        console.log(user);
+        if (user) {
+          res.send({ userExists: true });
+        } else {
+          Trainer.create({
+            last_name: lastName,
+            first_name: firstName,
+            email: email,
+            password: hashedPassword,
+          }).then((user) => {
+            res.send(user);
+          });
+        }
+      });
+      // Trainer.findOrCreate({
+      //   where: { email: email },
+      //   defaults: {
+      //     password: hashedPassword,
+      //     last_name: lastName,
+      //     first_name: firstName,
+      //   },
+      // })
+      //   .then((user, created) => {
+      //     console.log(created);
+      //     if (created) {
+      //       res.send({ userExists: false });
+      //     } else {
+      //       res.send({ userExists: true });
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     res.status(500).send({ message: err.message });
+      //   });
     }
   });
 });
